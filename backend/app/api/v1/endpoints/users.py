@@ -2,15 +2,9 @@ from fastapi import APIRouter, FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from uuid import UUID, uuid4
+from app.models.user import User
 
 users = []
-
-## User Class
-class User(BaseModel):
-    id: Optional[UUID] = None
-    name: str
-    email: str
-    age: int
 
 router = APIRouter()
 
