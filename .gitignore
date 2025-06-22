@@ -1,2 +1,2 @@
 venv_rc/
-/Users/akankshborah/resume_project/repo/ResumeCreator/backend/app/firebase/resume-creator-c6092-firebase-adminsdk-fbsvc-bb43bcdcd9.json
+backend/app/firebase/*.json
