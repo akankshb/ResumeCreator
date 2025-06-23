@@ -17,7 +17,7 @@ def read_users():
 def create_user(user: User):
     user_data = user.dict()
     firestore_db.collection("users").document(str(user.email)).set(user_data)
-    return user
+    return user, {"message": f"User {user.email} created successfully"}
 
 @router.get("/users/{user_email}", response_model=User)
 def read_profile(user_email: str):
@@ -30,15 +30,6 @@ def read_profile(user_email: str):
     data = doc.to_dict()
     return data
 
-# @router.put("/users/{user_id}", response_model=User)
-# def update_task(user_id: UUID, user_update: User):
-#     for idx, user in enumerate(users):
-#         if user.id == str(user_id):
-#             updated_user = user.copy(update=user_update.dict(exclude_unset=True))
-#             users[idx] = updated_user
-#             return updated_user
-        
-#     raise HTTPException(status_code=404, detail="User not found")
 
 
 @router.put("/users/{user_email}", response_model=User)
@@ -48,9 +39,22 @@ def update_user(user_email: EmailStr, user: User):
     # Optional: check if the document exists before updating
     if not doc_ref.get().exists:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    user.email = str(user.email)
-    # Overwrite the existing document
-    doc_ref.set(user.dict())
+    if user_email != user.email:
+        raise HTTPException(status_code=403, detail="Changing email is not allowed")
+    else:
+        user.email = str(user.email)
+        # Overwrite the existing document
+        doc_ref.set(user.dict())
+    return user, {"message": f"User {user_email} updated successfully"}
 
-    return user
+@router.delete("/users/{user_email}")
+def delete_user(user_email: EmailStr):
+    doc_ref = firestore_db.collection("users").document(user_email)
+
+    # Optional: check if the document exists before updating
+    if not doc_ref.get().exists:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    doc_ref.delete()
+
+    return {"message": "User deleted successfully"}
