@@ -1,0 +1,13 @@
+
+input[type=text] {
+    width: 30%;
+    padding: 8px 8px;
+    margin: 10px 10px;
+}
+
+input[type=number] {
+    width: 5%;
+    padding: 8px 8px;
+}
+
+
