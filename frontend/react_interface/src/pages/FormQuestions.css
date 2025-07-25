@@ -8,6 +8,14 @@ input[type=text] {
 input[type=number] {
     width: 5%;
     padding: 8px 8px;
+    margin: 20px 10px;
+}
+
+button {
+    width: 20%;
+    padding: 8px 8px;
+    margin: 20px 10px;
+    background-color:chocolate;
 }
 
 
