@@ -9,7 +9,8 @@ app.include_router(users.router)
 # Allow frontend origin
 origins = [
     "http://localhost:3000",  # React dev server
-    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8000/",
+    "http://127.0.0.1:3000/"
     # Add your production frontend URL here when deploying
 ]
 

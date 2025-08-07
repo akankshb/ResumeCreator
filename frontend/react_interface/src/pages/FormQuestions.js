@@ -6,10 +6,18 @@ import axios from 'axios'
 function Form() {
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
-    axios.get("http://127.0.0.1:8000")
+    let variable = "";
+    // axios({
+    //     method: 'get',
+    //     url: 'http://127.0.0.1:8000',
+    //     responseType: 'stream'
+    //   })
+    axios.get("http://127.0.0.1:8000/docs#/")
     .then(response => {
         console.log(response.status);
       console.log(response.data);
+      variable = JSON.stringify(response.data);
+      console.log("This is variable"+variable);
     })
     .catch(function (error) {
         console.log("Hello World1")
@@ -18,8 +26,12 @@ function Form() {
     return (
         <div className="App">
         <h1>Resume Builder</h1>
-        <p>{}</p>
-        {/* <p>Explanation for website use needed*</p>
+        <p id = "data"></p>
+        <script>
+            console.log("This is working");
+            document.getElementById("data").innerHTML = variable;
+        </script>
+        <p>Explanation for website use needed*</p>
         <form>
             <label>1. Enter your full name: 
             <br></br>
@@ -45,7 +57,7 @@ function Form() {
         <button onClick={
             () => alert("This button works") 
         }>Create Account</button>
-         */}
+        
         </div>
         
     );
