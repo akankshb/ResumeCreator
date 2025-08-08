@@ -7,30 +7,29 @@ function Form() {
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     let variable = "";
-    // axios({
-    //     method: 'get',
-    //     url: 'http://127.0.0.1:8000',
-    //     responseType: 'stream'
-    //   })
-    axios.get("http://127.0.0.1:8000/docs#/")
+    axios({
+        method: 'get',
+        url: "http://127.0.0.1:8000/users",
+        responseType: 'stream'
+      })
+    // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
     .then(response => {
-        console.log(response.status);
       console.log(response.data);
       variable = JSON.stringify(response.data);
       console.log("This is variable"+variable);
     })
     .catch(function (error) {
-        console.log("Hello World1")
         console.error(error);
       });    
     return (
         <div className="App">
         <h1>Resume Builder</h1>
         <p id = "data"></p>
-        <script>
+        <script> alert("hi!") </script>
+        {/* <script>
+        alert("hi!")
             console.log("This is working");
-            document.getElementById("data").innerHTML = variable;
-        </script>
+            document.getElementById("data").innerHTML = "something"; </script> */}
         <p>Explanation for website use needed*</p>
         <form>
             <label>1. Enter your full name: 
