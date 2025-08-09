@@ -8,6 +8,7 @@ function App() {
       <header className="App-header">
         <Form/>
       </header>
+      <script>alert("hi");</script>
     </div>
   );
 }

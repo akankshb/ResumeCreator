@@ -4,9 +4,49 @@ import "./FormQuestions.css"
 import axios from 'axios'
 
 function Form() {
-    const [name, setName] = useState("");
-    const [age, setAge] = useState("");
+    let [name, setName] = useState("");
+    let [age, setAge] = useState("");
+    let [email, setEmail] = useState("");
     let variable = "";
+    const instance = axios.create ({
+        url: url,
+        responseType: 'stream',
+        data: {
+            name: name,
+            age: age,
+            email: email
+              },
+        transformRequest: [function (data, headers) {
+            name = name;
+            email = email;
+            age = parseInt(age);
+        return data;
+              }]
+    })
+    function ToFirebase(method, url){
+        axios({
+            method: method ,
+            url: url,
+            responseType: 'stream',
+            data: {
+                firstName: name,
+                age: age,
+                email: email
+              },
+              transformRequest: [function (data, headers) {
+                name = name;
+                email = email;
+                age = parseInt(age);
+                return data;
+              }]
+        // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
+        // .then(response => {
+        //   console.log("The post function is working")
+        // })
+        // .catch(function (error) {
+        //     console.error(error);
+        //   })
+    })}
     axios({
         method: 'get',
         url: "http://127.0.0.1:8000/users",
@@ -23,13 +63,13 @@ function Form() {
       });    
     return (
         <div className="App">
+        <script>
+        alert("hi!")
+        console.log("This is working");
+        document.getElementById("data").innerHTML = "something"; 
+        </script>
         <h1>Resume Builder</h1>
         <p id = "data"></p>
-        <script> alert("hi!") </script>
-        {/* <script>
-        alert("hi!")
-            console.log("This is working");
-            document.getElementById("data").innerHTML = "something"; </script> */}
         <p>Explanation for website use needed*</p>
         <form>
             <label>1. Enter your full name: 
@@ -53,9 +93,22 @@ function Form() {
             />
             </label>
         </form>
-        <button onClick={
-            () => alert("This button works") 
-        }>Create Account</button>
+        <form>
+            <label>2. Enter your email:
+                <br/> 
+            <input 
+                name="email"
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            </label>
+        </form>
+        <button onClick=
+        {() => instance.post(
+            
+        )}>
+        Create Account
+        </button>
         
         </div>
         
