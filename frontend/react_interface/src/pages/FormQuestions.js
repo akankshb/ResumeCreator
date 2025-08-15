@@ -9,47 +9,20 @@ function Form() {
     let [email, setEmail] = useState("");
     let variable = "";
     const instance = axios.create ({
-        url: url,
-        responseType: 'stream',
+        baseURL: 'http://127.0.0.1:8000',
         data: {
-            name: name,
-            age: age,
-            email: email
+            fullName: name,
+            Age: age,
+            Email: email
               },
         transformRequest: [function (data, headers) {
-            name = name;
-            email = email;
-            age = parseInt(age);
+            // data['age'] = parseInt(data['age']);  
         return data;
               }]
     })
-    function ToFirebase(method, url){
-        axios({
-            method: method ,
-            url: url,
-            responseType: 'stream',
-            data: {
-                firstName: name,
-                age: age,
-                email: email
-              },
-              transformRequest: [function (data, headers) {
-                name = name;
-                email = email;
-                age = parseInt(age);
-                return data;
-              }]
-        // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
-        // .then(response => {
-        //   console.log("The post function is working")
-        // })
-        // .catch(function (error) {
-        //     console.error(error);
-        //   })
-    })}
-    axios({
+    instance({
         method: 'get',
-        url: "http://127.0.0.1:8000/users",
+        url: "/users",
         responseType: 'stream'
       })
     // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
@@ -61,13 +34,27 @@ function Form() {
     .catch(function (error) {
         console.error(error);
       });    
+    
+      instance({
+        method: 'get',
+        url: "/users/user@example.com",
+        responseType: 'stream'
+      })
+    // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
+    .then(response => {
+      console.log(response.data);
+      variable = JSON.stringify(response.data);
+      console.log("This is variable"+variable);
+    })
+    .catch(function (error) {
+        console.error(error);
+      });
+
+
+
+      
     return (
         <div className="App">
-        <script>
-        alert("hi!")
-        console.log("This is working");
-        document.getElementById("data").innerHTML = "something"; 
-        </script>
         <h1>Resume Builder</h1>
         <p id = "data"></p>
         <p>Explanation for website use needed*</p>
@@ -104,8 +91,10 @@ function Form() {
             </label>
         </form>
         <button onClick=
-        {() => instance.post(
-            
+        {() => instance.post('/users',
+            // data{
+            //     name: 
+            // }
         )}>
         Create Account
         </button>
