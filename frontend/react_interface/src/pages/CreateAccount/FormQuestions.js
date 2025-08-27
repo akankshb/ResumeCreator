@@ -8,56 +8,25 @@ function Form() {
     let [age, setAge] = useState("");
     let [email, setEmail] = useState("");
     let variable = "";
-    const instance = axios.create ({
-        baseURL: 'http://127.0.0.1:8000',
-        data: {
-            fullName: name,
-            Age: age,
-            Email: email
-              },
-        transformRequest: [function (data, headers) {
-            // data['age'] = parseInt(data['age']);  
-        return data;
-              }]
-    })
-    instance({
-        method: 'get',
-        url: "/users",
-        responseType: 'stream'
-      })
-    // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
-    .then(response => {
-      console.log(response.data);
-      variable = JSON.stringify(response.data);
-      console.log("This is variable"+variable);
-    })
-    .catch(function (error) {
-        console.error(error);
-      });    
-    
-      instance({
-        method: 'get',
-        url: "/users/user@example.com",
-        responseType: 'stream'
-      })
-    // axios.get("http://127.0.0.1:8000/docs#/users/akankshborah@gmail.com")
-    .then(response => {
-      console.log(response.data);
-      variable = JSON.stringify(response.data);
-      console.log("This is variable"+variable);
-    })
-    .catch(function (error) {
-        console.error(error);
-      });
-
-
-
-      
+    const submit = async (e) => {
+        e.preventDefault();
+        const message = axios.post("http://127.0.0.1:8000/users", {
+                name: name,
+                email: email,
+                age: parseInt(age)
+        }).then(res => {
+                console.log(res.data); // runs when the request finishes
+              })
+          .catch(err => {
+            console.error(err);
+                      });
+        }
+        
     return (
         <div className="App">
         <h1>Resume Builder</h1>
         <p id = "data"></p>
-        <p>Explanation for website use needed*</p>
+        <p>Create an Account</p>
         <form>
             <label>1. Enter your full name: 
             <br></br>
@@ -91,11 +60,7 @@ function Form() {
             </label>
         </form>
         <button onClick=
-        {() => instance.post('/users',
-            // data{
-            //     name: 
-            // }
-        )}>
+        {submit}>
         Create Account
         </button>
         
