@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import "./FormQuestions.css"
+import "./SignUp.css"
 import axios from 'axios'
 
 function Form() {

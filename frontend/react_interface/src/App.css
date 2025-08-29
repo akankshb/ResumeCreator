@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.button {
+  padding: 1px 1px;
+  border: 1px outset buttonborder;
+  border-radius: 3px;
+  color: buttontext;
+  background-color: buttonface;
+  text-decoration: none;
+  max-width: 200px;
+}
